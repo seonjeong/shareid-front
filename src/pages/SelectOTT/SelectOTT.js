@@ -26,7 +26,7 @@ const SelectOTT = () => {
                     variant='primary'
                     onClick={() => {
                       navigate({
-                        pathname: 'select-date',
+                        pathname: '/select-date',
                         search: `ott=${ott}`,
                       });
                     }}
