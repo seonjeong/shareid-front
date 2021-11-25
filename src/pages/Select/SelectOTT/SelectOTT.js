@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
-import { Button } from '../../components/Button';
+import { Button } from '../../../components/Button';
 import OTTCard from './SelectOTT.style';
 
 const SelectOTT = () => {
@@ -26,7 +26,7 @@ const SelectOTT = () => {
                     variant='primary'
                     onClick={() => {
                       navigate({
-                        pathname: '/select-date',
+                        pathname: '/select/date',
                         search: `ott=${ott}`,
                       });
                     }}

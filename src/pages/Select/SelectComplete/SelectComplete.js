@@ -1,6 +1,6 @@
 import { Container, Alert, Card, ButtonGroup } from 'react-bootstrap';
 
-import { Button } from '../../components/Button';
+import { Button } from '../../../components/Button';
 
 const SelectComplete = () => {
   return (

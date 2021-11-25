@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 
 import { Container, Alert, Card, Form, ButtonGroup } from 'react-bootstrap';
 
-import { Button } from '../../components/Button';
+import { Button } from '../../../components/Button';
 
 const SelectDate = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const SelectDate = () => {
         <Button
           onClick={() => {
             navigate({
-              pathname: '/select-pay',
+              pathname: '/select/pay',
             });
           }}
         >

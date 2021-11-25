@@ -9,7 +9,7 @@ import {
   ButtonGroup,
 } from 'react-bootstrap';
 
-import { Button } from '../../components/Button';
+import { Button } from '../../../components/Button';
 
 const SelectPay = () => {
   const navigate = useNavigate();
@@ -91,7 +91,7 @@ const SelectPay = () => {
         <Button
           onClick={() => {
             navigate({
-              pathname: '/select-complete',
+              pathname: '/select/complete',
             });
           }}
         >
