@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
+import qs from 'query-string';
+
 import { useNavigate } from 'react-router';
 import {
   Container,
@@ -13,6 +17,8 @@ import { Button } from '../../../components/Button';
 
 const SelectPay = () => {
   const navigate = useNavigate();
+
+  const [searchQuery, setSearchQuery] = useSearchParams();
 
   const [selectedPay, setSelectedPay] = useState('pay-registered');
   return (
@@ -43,6 +49,9 @@ const SelectPay = () => {
               name='pay'
               value='pay-registered'
               checked={'pay-registered' === selectedPay}
+              onChange={() => {
+                setSelectedPay('pay-registered');
+              }}
             >
               등록된 결제 수단
             </ToggleButton>
@@ -52,6 +61,9 @@ const SelectPay = () => {
               name='pay'
               value='pay-credit'
               checked={'pay-credit' === selectedPay}
+              onChange={() => {
+                setSelectedPay('pay-credit');
+              }}
             >
               신용카드
             </ToggleButton>
@@ -61,6 +73,9 @@ const SelectPay = () => {
               name='pay'
               value='pay-phone'
               checked={'pay-phone' === selectedPay}
+              onChange={() => {
+                setSelectedPay('pay-phone');
+              }}
             >
               휴대폰 결제
             </ToggleButton>
@@ -70,6 +85,9 @@ const SelectPay = () => {
               name='pay'
               value='pay-naver'
               checked={'pay-naver' === selectedPay}
+              onChange={() => {
+                setSelectedPay('pay-naver');
+              }}
             >
               네이버 페이
             </ToggleButton>
@@ -90,8 +108,17 @@ const SelectPay = () => {
       <ButtonGroup className='mt-3'>
         <Button
           onClick={() => {
+            const search = Object.fromEntries([...searchQuery]);
+
+            const data = {
+              ...search,
+              pay: selectedPay,
+            };
+
+            const querystring = qs.stringify(data);
             navigate({
               pathname: '/select/complete',
+              search: querystring,
             });
           }}
         >
