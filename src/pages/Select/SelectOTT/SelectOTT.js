@@ -6,17 +6,15 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Button } from '../../../components/Button';
 import OTTCard from './SelectOTT.style';
 
+import { ottService } from '../_data';
+
 const SelectOTT = () => {
   const navigate = useNavigate();
 
-  const [otts, setOtts] = useState({
-    netflix: { id: 'netflix', title: '넷플릭스' },
-    youtube: { id: 'youtube', title: '유투브' },
-  });
   return (
     <Container>
       <Row>
-        {Object.entries(otts).map(([ott, ottData]) => {
+        {Object.entries(ottService).map(([ott, ottData]) => {
           return (
             <Col>
               <OTTCard>
