@@ -8,6 +8,8 @@ import { Container, Alert, Card, Form, ButtonGroup } from 'react-bootstrap';
 
 import { Button } from '../../../components/Button';
 
+import { ottService } from '../_data';
+
 const SelectDate = (props) => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useSearchParams({});
@@ -26,7 +28,9 @@ const SelectDate = (props) => {
 
   return (
     <Container className='mt-5'>
-      <Alert variant='info'>서비스 기간을 선택하세요</Alert>
+      <Alert variant='info'>
+        서비스 {ottService[searchQuery.get('ott')].title} 기간을 선택하세요
+      </Alert>
       <Card>
         <Card.Body>
           <Card.Title>이용권을 선택해주세요</Card.Title>
