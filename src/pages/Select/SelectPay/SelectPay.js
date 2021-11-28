@@ -15,6 +15,8 @@ import {
 
 import { Button } from '../../../components/Button';
 
+import { ottService } from '../_data';
+
 const SelectPay = () => {
   const navigate = useNavigate();
 
@@ -27,16 +29,40 @@ const SelectPay = () => {
       <Card>
         <Card.Body>
           <Card.Title>구매 상품</Card.Title>
-          <Card.Text>넷플릭스 3일 이용권(AM 6:00 부터)</Card.Text>
+          <Card.Text>
+            {ottService[searchQuery.get('ott')].title}
+            {searchQuery.get('days')}일 이용권(
+            {searchQuery.get('date')} {` `}
+            {searchQuery.get('time').toLocaleUpperCase()} 6:00 부터)
+          </Card.Text>
         </Card.Body>
       </Card>
       <Card>
         <Card.Body>
           <Card.Title>상품가격</Card.Title>
-          <Card.Text style={{ textDecoration: 'line-through' }}>
-            3000원
+
+          {ottService[searchQuery.get('ott')].pays[
+            `day${searchQuery.get('days')}`
+          ].sale > 0 && (
+            <Card.Text style={{ textDecoration: 'line-through' }}>
+              {
+                ottService[searchQuery.get('ott')].pays[
+                  `day${searchQuery.get('days')}`
+                ].pay
+              }
+              원
+            </Card.Text>
+          )}
+
+          <Card.Text>
+            {ottService[searchQuery.get('ott')].pays[
+              `day${searchQuery.get('days')}`
+            ].pay -
+              ottService[searchQuery.get('ott')].pays[
+                `day${searchQuery.get('days')}`
+              ].sale}
+            원
           </Card.Text>
-          <Card.Text>2000원</Card.Text>
         </Card.Body>
       </Card>
       <Card>
