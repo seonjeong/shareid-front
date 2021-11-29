@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Container, Row, Col } from 'react-bootstrap';
@@ -8,7 +7,7 @@ import OTTCard from './SelectOTT.style';
 
 import { ottService } from '../_data';
 
-const SelectOTT = () => {
+const SelectOTT = ({setCurrentOtt}) => {
   const navigate = useNavigate();
 
   return (
@@ -23,9 +22,9 @@ const SelectOTT = () => {
                   <Button
                     variant='primary'
                     onClick={() => {
+                      setCurrentOtt(ott);
                       navigate({
-                        pathname: '/select/date',
-                        search: `ott=${ott}`,
+                        pathname: '/select/date'
                       });
                     }}
                   >

@@ -1,20 +1,10 @@
-import { useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
-
 import { Container, Alert, Card, ButtonGroup } from 'react-bootstrap';
 
 import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
 
-const SelectComplete = () => {
-
-  const [searchQuery, setSearchQuery] = useSearchParams({});
-
-  const {current: ott} = useRef(searchQuery.get('ott'));
-  const {current: days} = useRef(searchQuery.get('days'));
-  const {current: date} = useRef(searchQuery.get('date'));
-  const {current: time} = useRef(searchQuery.get('time'));
+const SelectComplete = ({currentOtt, currentDays, currentDate, currentTime, selectedPay}) => {
   
   return (
     <Container className='mt-5'>
@@ -24,14 +14,14 @@ const SelectComplete = () => {
       <Card>
         <Card.Body>
           <Card.Title>신청한 서비스</Card.Title>
-          <Card.Text>{ottService[ott].title}</Card.Text>
+          <Card.Text>{ottService[currentOtt].title}</Card.Text>
         </Card.Body>
       </Card>
       <Card>
         <Card.Body>
           <Card.Title>이용 기간</Card.Title>
           <Card.Text>
-            {date} {time.toLocaleUpperCase()} 6:00 ~ {date} {time.toLocaleUpperCase()} 6:00
+            {currentDate} {currentTime.toLocaleUpperCase()} 6:00 ~ {currentDate} {currentTime.toLocaleUpperCase()} 6:00
           </Card.Text>
         </Card.Body>
       </Card>
@@ -39,8 +29,8 @@ const SelectComplete = () => {
         <Card.Body>
           <Card.Title>결제 금액</Card.Title>
           <Card.Text>
-            {ottService[ott].pays[`day${days}`].pay - ottService[ott].pays[`day${days}`].sale}원
-            {ottService[ott].pays[`day${days}`].sale ? `(총 ${ottService[ott].pays[`day${days}`].sale }원 할인 받았어요)` : ''}
+            {ottService[currentOtt].pays[`day${currentDays}`].pay - ottService[currentOtt].pays[`day${currentDays}`].sale}원
+            {ottService[currentOtt].pays[`day${currentDays}`].sale ? `(총 ${ottService[currentOtt].pays[`day${currentDays}`].sale }원 할인 받았어요)` : ''}
           </Card.Text>
         </Card.Body>
       </Card>

@@ -1,8 +1,4 @@
-import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
-import { useSearchParams } from 'react-router-dom';
-
-import qs from 'query-string';
 
 import { Container, Alert, Card, Form, ButtonGroup } from 'react-bootstrap';
 
@@ -10,28 +6,13 @@ import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
 
-const SelectDate = (props) => {
+const SelectDate = ({currentOtt, currentDays, setCurrentDays, currentDate, setCurrentDate, currentTime, setCurrentTime}) => {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useSearchParams({});
-
-  const getToday = () => {
-    var date = new Date();
-    var year = date.getFullYear();
-    var month = ('0' + (1 + date.getMonth())).slice(-2);
-    var day = ('0' + date.getDate()).slice(-2);
-
-    return `${year}-${month}-${day}`;
-  };
-  const [currentDays, setCurrentDays] = useState(1);
-  const [currentDate, setCurrentDate] = useState(getToday());
-  const [currentTime, setCurrentTime] = useState('am');
-
-  const {current: ott} = useRef(searchQuery.get('ott'));
   
   return (
     <Container className='mt-5'>
       <Alert variant='info'>
-        서비스 {ottService[ott].title} 기간을 선택하세요
+        서비스 {ottService[currentOtt].title} 기간을 선택하세요
       </Alert>
       <Card>
         <Card.Body>
@@ -113,17 +94,8 @@ const SelectDate = (props) => {
       <ButtonGroup className='mt-3'>
         <Button
           onClick={() => {
-            const data = {
-              ott: ott,
-              days: currentDays,
-              date: currentDate,
-              time: currentTime,
-            };
-
-            const querystring = qs.stringify(data);
             navigate({
               pathname: '/select/pay',
-              search: querystring,
             });
           }}
         >

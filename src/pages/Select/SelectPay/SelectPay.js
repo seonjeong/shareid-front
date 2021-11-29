@@ -1,9 +1,6 @@
 import { useState, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
-
-import qs from 'query-string';
-
 import { useNavigate } from 'react-router';
+
 import {
   Container,
   Alert,
@@ -17,20 +14,12 @@ import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
 
-const SelectPay = () => {
+const SelectPay = ({currentOtt, currentDays, currentDate, currentTime, selectedPay, setSelectedPay}) => {
   const navigate = useNavigate();
 
   const $acceptTerm = useRef();
-
-  const [searchQuery, setSearchQuery] = useSearchParams();
-
-  const [selectedPay, setSelectedPay] = useState('pay-registered');
+  
   const [acceptTerm, setAcceptTerm] = useState(false);
-
-  const {current: ott} = useRef(searchQuery.get('ott'));
-  const {current: days} = useRef(searchQuery.get('days'));
-  const {current: date} = useRef(searchQuery.get('date'));
-  const {current: time} = useRef(searchQuery.get('time'));
 
   return (
     <Container className='mt-5'>
@@ -39,10 +28,10 @@ const SelectPay = () => {
         <Card.Body>
           <Card.Title>구매 상품</Card.Title>
           <Card.Text>
-            {ottService[ott].title}
-            {days}일 이용권(
-            {date} {` `}
-            {time.toLocaleUpperCase()} 6:00 부터)
+            {ottService[currentOtt].title}
+            {currentDays}일 이용권(
+            {currentDate} {` `}
+            {currentTime.toLocaleUpperCase()} 6:00 부터)
           </Card.Text>
         </Card.Body>
       </Card>
@@ -50,13 +39,13 @@ const SelectPay = () => {
         <Card.Body>
           <Card.Title>상품가격</Card.Title>
 
-          {ottService[ott].pays[`day${days}`].sale > 0 && (
+          {ottService[currentOtt].pays[`day${currentDays}`].sale > 0 && (
             <Card.Text style={{ textDecoration: 'line-through' }}>
-              {ottService[ott].pays[`day${days}`].pay}원
+              {ottService[currentOtt].pays[`day${currentDays}`].pay}원
             </Card.Text>
           )}
           <Card.Text>
-            {ottService[ott].pays[`day${days}`].pay -ottService[ott].pays[`day${days}`].sale}원
+            {ottService[currentOtt].pays[`day${currentDays}`].pay -ottService[currentOtt].pays[`day${currentDays}`].sale}원
           </Card.Text>
         </Card.Body>
       </Card>
@@ -140,18 +129,9 @@ const SelectPay = () => {
               $acceptTerm.current.focus();
               return;
             }
-
-            const search = Object.fromEntries([...searchQuery]);
-
-            const data = {
-              ...search,
-              pay: selectedPay,
-            };
-
-            const querystring = qs.stringify(data);
+            
             navigate({
               pathname: '/select/complete',
-              search: querystring,
             });
           }}
         >
