@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { Container, Alert, Card, ButtonGroup } from 'react-bootstrap';
 
 import { Button } from '../../../components/Button';
@@ -21,7 +23,7 @@ const SelectComplete = ({currentOtt, currentDays, currentDate, currentTime, sele
         <Card.Body>
           <Card.Title>이용 기간</Card.Title>
           <Card.Text>
-            {currentDate} {currentTime.toLocaleUpperCase()} 6:00 ~ {currentDate} {currentTime.toLocaleUpperCase()} 6:00
+          {moment(currentDate).format('YYYY-MM-DD')} {currentTime.toLocaleUpperCase()} 6:00 ~ {moment(currentDate).add(currentDays, 'days').format('YYYY-MM-DD')} {currentTime.toLocaleUpperCase()} 6:00
           </Card.Text>
         </Card.Body>
       </Card>
