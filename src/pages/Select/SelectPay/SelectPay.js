@@ -20,9 +20,12 @@ import { ottService } from '../_data';
 const SelectPay = () => {
   const navigate = useNavigate();
 
+  const $acceptTerm = useRef();
+
   const [searchQuery, setSearchQuery] = useSearchParams();
 
   const [selectedPay, setSelectedPay] = useState('pay-registered');
+  const [acceptTerm, setAcceptTerm] = useState(false);
 
   const {current: ott} = useRef(searchQuery.get('ott'));
   const {current: days} = useRef(searchQuery.get('days'));
@@ -119,6 +122,11 @@ const SelectPay = () => {
               id='accept-term'
               name='accept-term'
               label='이용 약관 동의'
+              checked={acceptTerm}
+              ref={$acceptTerm}
+              onChange={(e) => {
+                setAcceptTerm(e.target.checked);
+              }}
             />
           </Card.Text>
         </Card.Body>
@@ -126,6 +134,13 @@ const SelectPay = () => {
       <ButtonGroup className='mt-3'>
         <Button
           onClick={() => {
+
+            if(!acceptTerm) {
+              alert('이용 약관에 동의하세요');
+              $acceptTerm.current.focus();
+              return;
+            }
+
             const search = Object.fromEntries([...searchQuery]);
 
             const data = {
