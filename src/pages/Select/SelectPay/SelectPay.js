@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import qs from 'query-string';
@@ -23,6 +23,12 @@ const SelectPay = () => {
   const [searchQuery, setSearchQuery] = useSearchParams();
 
   const [selectedPay, setSelectedPay] = useState('pay-registered');
+
+  const {current: ott} = useRef(searchQuery.get('ott'));
+  const {current: days} = useRef(searchQuery.get('days'));
+  const {current: date} = useRef(searchQuery.get('date'));
+  const {current: time} = useRef(searchQuery.get('time'));
+
   return (
     <Container className='mt-5'>
       <Alert variant='info'>결제 수단을 선택해주세요</Alert>
@@ -30,10 +36,10 @@ const SelectPay = () => {
         <Card.Body>
           <Card.Title>구매 상품</Card.Title>
           <Card.Text>
-            {ottService[searchQuery.get('ott')].title}
-            {searchQuery.get('days')}일 이용권(
-            {searchQuery.get('date')} {` `}
-            {searchQuery.get('time').toLocaleUpperCase()} 6:00 부터)
+            {ottService[ott].title}
+            {days}일 이용권(
+            {date} {` `}
+            {time.toLocaleUpperCase()} 6:00 부터)
           </Card.Text>
         </Card.Body>
       </Card>
@@ -41,27 +47,13 @@ const SelectPay = () => {
         <Card.Body>
           <Card.Title>상품가격</Card.Title>
 
-          {ottService[searchQuery.get('ott')].pays[
-            `day${searchQuery.get('days')}`
-          ].sale > 0 && (
+          {ottService[ott].pays[`day${days}`].sale > 0 && (
             <Card.Text style={{ textDecoration: 'line-through' }}>
-              {
-                ottService[searchQuery.get('ott')].pays[
-                  `day${searchQuery.get('days')}`
-                ].pay
-              }
-              원
+              {ottService[ott].pays[`day${days}`].pay}원
             </Card.Text>
           )}
-
           <Card.Text>
-            {ottService[searchQuery.get('ott')].pays[
-              `day${searchQuery.get('days')}`
-            ].pay -
-              ottService[searchQuery.get('ott')].pays[
-                `day${searchQuery.get('days')}`
-              ].sale}
-            원
+            {ottService[ott].pays[`day${days}`].pay -ottService[ott].pays[`day${days}`].sale}원
           </Card.Text>
         </Card.Body>
       </Card>

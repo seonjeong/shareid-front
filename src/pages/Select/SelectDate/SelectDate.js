@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 
@@ -26,10 +26,12 @@ const SelectDate = (props) => {
   const [currentDate, setCurrentDate] = useState(getToday());
   const [currentTime, setCurrentTime] = useState('am');
 
+  const {current: ott} = useRef(searchQuery.get('ott'));
+  
   return (
     <Container className='mt-5'>
       <Alert variant='info'>
-        서비스 {ottService[searchQuery.get('ott')].title} 기간을 선택하세요
+        서비스 {ottService[ott].title} 기간을 선택하세요
       </Alert>
       <Card>
         <Card.Body>
@@ -112,7 +114,7 @@ const SelectDate = (props) => {
         <Button
           onClick={() => {
             const data = {
-              ott: searchQuery.get('ott'),
+              ott: ott,
               days: currentDays,
               date: currentDate,
               time: currentTime,

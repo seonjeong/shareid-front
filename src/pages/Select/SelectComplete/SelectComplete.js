@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { Container, Alert, Card, ButtonGroup } from 'react-bootstrap';
@@ -9,6 +10,11 @@ import { ottService } from '../_data';
 const SelectComplete = () => {
 
   const [searchQuery, setSearchQuery] = useSearchParams({});
+
+  const {current: ott} = useRef(searchQuery.get('ott'));
+  const {current: days} = useRef(searchQuery.get('days'));
+  const {current: date} = useRef(searchQuery.get('date'));
+  const {current: time} = useRef(searchQuery.get('time'));
   
   return (
     <Container className='mt-5'>
@@ -18,14 +24,14 @@ const SelectComplete = () => {
       <Card>
         <Card.Body>
           <Card.Title>신청한 서비스</Card.Title>
-          <Card.Text>{ottService[searchQuery.get('ott')].title}</Card.Text>
+          <Card.Text>{ottService[ott].title}</Card.Text>
         </Card.Body>
       </Card>
       <Card>
         <Card.Body>
           <Card.Title>이용 기간</Card.Title>
           <Card.Text>
-            {searchQuery.get('date')} {searchQuery.get('time').toLocaleUpperCase()} 6:00 ~ {searchQuery.get('date')} {searchQuery.get('time').toLocaleUpperCase()} 6:00
+            {date} {time.toLocaleUpperCase()} 6:00 ~ {date} {time.toLocaleUpperCase()} 6:00
           </Card.Text>
         </Card.Body>
       </Card>
@@ -33,8 +39,8 @@ const SelectComplete = () => {
         <Card.Body>
           <Card.Title>결제 금액</Card.Title>
           <Card.Text>
-            {ottService[searchQuery.get('ott')].pays[`day${searchQuery.get('days')}`].pay - ottService[searchQuery.get('ott')].pays[`day${searchQuery.get('days')}`].sale}원
-            {ottService[searchQuery.get('ott')].pays[`day${searchQuery.get('days')}`].sale ? `(총 ${ottService[searchQuery.get('ott')].pays[`day${searchQuery.get('days')}`].sale }원 할인 받았어요)` : ''}
+            {ottService[ott].pays[`day${days}`].pay - ottService[ott].pays[`day${days}`].sale}원
+            {ottService[ott].pays[`day${days}`].sale ? `(총 ${ottService[ott].pays[`day${days}`].sale }원 할인 받았어요)` : ''}
           </Card.Text>
         </Card.Body>
       </Card>
