@@ -1,8 +1,15 @@
+import { useSearchParams } from 'react-router-dom';
+
 import { Container, Alert, Card, ButtonGroup } from 'react-bootstrap';
 
 import { Button } from '../../../components/Button';
 
+import { ottService } from '../_data';
+
 const SelectComplete = () => {
+
+  const [searchQuery, setSearchQuery] = useSearchParams({});
+  
   return (
     <Container className='mt-5'>
       <Alert variant='info'>
@@ -11,21 +18,24 @@ const SelectComplete = () => {
       <Card>
         <Card.Body>
           <Card.Title>신청한 서비스</Card.Title>
-          <Card.Text>넷플릭스</Card.Text>
+          <Card.Text>{ottService[searchQuery.get('ott')].title}</Card.Text>
         </Card.Body>
       </Card>
       <Card>
         <Card.Body>
           <Card.Title>이용 기간</Card.Title>
           <Card.Text>
-            0000년 00월 00일 AM 6:00 ~ 0000년 00월 00일 AM 6:00
+            {searchQuery.get('date')} {searchQuery.get('time').toLocaleUpperCase()} 6:00 ~ {searchQuery.get('date')} {searchQuery.get('time').toLocaleUpperCase()} 6:00
           </Card.Text>
         </Card.Body>
       </Card>
       <Card>
         <Card.Body>
           <Card.Title>결제 금액</Card.Title>
-          <Card.Text>2000원(총 1000원 할인 받았어요)</Card.Text>
+          <Card.Text>
+            {ottService[searchQuery.get('ott')].pays[`day${searchQuery.get('days')}`].pay - ottService[searchQuery.get('ott')].pays[`day${searchQuery.get('days')}`].sale}원
+            {ottService[searchQuery.get('ott')].pays[`day${searchQuery.get('days')}`].sale ? `(총 ${ottService[searchQuery.get('ott')].pays[`day${searchQuery.get('days')}`].sale }원 할인 받았어요)` : ''}
+          </Card.Text>
         </Card.Body>
       </Card>
       <Card>
