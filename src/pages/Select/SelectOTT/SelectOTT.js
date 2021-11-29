@@ -25,6 +25,9 @@ const SelectOTT = ({setCurrentOtt}) => {
                       setCurrentOtt(ott);
                       navigate({
                         pathname: '/select/date'
+                      }, 
+                      {
+                        state: {currentOtt: ott}
                       });
                     }}
                   >

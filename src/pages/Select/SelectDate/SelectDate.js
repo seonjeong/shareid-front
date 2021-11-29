@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
 import { Container, Alert, Card, Form, ButtonGroup } from 'react-bootstrap';
 
@@ -6,8 +7,10 @@ import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
 
-const SelectDate = ({currentOtt, currentDays, setCurrentDays, currentDate, setCurrentDate, currentTime, setCurrentTime}) => {
-  const navigate = useNavigate();
+const SelectDate = ({currentDays, setCurrentDays, currentDate, setCurrentDate, currentTime, setCurrentTime}) => {
+
+  const navigate = useNavigate();  
+  const {state: {currentOtt}} = useLocation();
   
   return (
     <Container className='mt-5'>
