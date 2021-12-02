@@ -7,7 +7,7 @@ import OTTCard from './SelectOTT.style';
 
 import { ottService } from '../_data';
 
-const SelectOTT = ({setCurrentOtt}) => {
+const SelectOTT = ({ setCurrentOtt }) => {
   const navigate = useNavigate();
 
   return (
@@ -23,12 +23,14 @@ const SelectOTT = ({setCurrentOtt}) => {
                     variant='primary'
                     onClick={() => {
                       setCurrentOtt(ott);
-                      navigate({
-                        pathname: '/select/date'
-                      }, 
-                      {
-                        state: {currentOtt: ott}
-                      });
+                      navigate(
+                        {
+                          pathname: '/select/date',
+                        },
+                        {
+                          state: { currentOtt: ott },
+                        }
+                      );
                     }}
                   >
                     Go

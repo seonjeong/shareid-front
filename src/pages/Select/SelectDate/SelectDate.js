@@ -7,11 +7,19 @@ import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
 
-const SelectDate = ({currentDays, setCurrentDays, currentDate, setCurrentDate, currentTime, setCurrentTime}) => {
+const SelectDate = ({
+  currentDays,
+  setCurrentDays,
+  currentDate,
+  setCurrentDate,
+  currentTime,
+  setCurrentTime,
+}) => {
+  const navigate = useNavigate();
+  const {
+    state: { currentOtt },
+  } = useLocation();
 
-  const navigate = useNavigate();  
-  const {state: {currentOtt}} = useLocation();
-  
   return (
     <Container className='mt-5'>
       <Alert variant='info'>

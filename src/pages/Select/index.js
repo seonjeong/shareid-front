@@ -17,34 +17,62 @@ const Select = () => {
 
   return (
     <Routes>
-      <Route path='' exact element={<SelectOTT currentOtt={currentOtt} setCurrentOtt={setCurrentOtt} />} />
-      <Route path='ott' exact element={<SelectOTT currentOtt={currentOtt} setCurrentOtt={setCurrentOtt} />} />
-      <Route path='date' exact element={
-        <SelectDate 
-          currentOtt={currentOtt}
-          currentDays={currentDays} setCurrentDays={setCurrentDays} 
-          currentDate={currentDate} setCurrentDate={setCurrentDate} 
-          currentTime={currentTime} setCurrentTime={setCurrentTime} 
-        />
-      } />
-      <Route path='pay' exact element={
-        <SelectPay 
-          currentOtt={currentOtt}
-          currentDays={currentDays}
-          currentDate={currentDate}
-          currentTime={currentTime}
-          selectedPay={selectedPay} setSelectedPay={setSelectedPay}
-        />
-      } />
-      <Route path='complete' exact element={
-        <SelectComplete 
-          currentOtt={currentOtt}
-          currentDays={currentDays}
-          currentDate={currentDate}
-          currentTime={currentTime}
-          selectedPay={selectedPay}
-        />
-      } />
+      <Route
+        path=''
+        exact
+        element={
+          <SelectOTT currentOtt={currentOtt} setCurrentOtt={setCurrentOtt} />
+        }
+      />
+      <Route
+        path='ott'
+        exact
+        element={
+          <SelectOTT currentOtt={currentOtt} setCurrentOtt={setCurrentOtt} />
+        }
+      />
+      <Route
+        path='date'
+        exact
+        element={
+          <SelectDate
+            currentOtt={currentOtt}
+            currentDays={currentDays}
+            setCurrentDays={setCurrentDays}
+            currentDate={currentDate}
+            setCurrentDate={setCurrentDate}
+            currentTime={currentTime}
+            setCurrentTime={setCurrentTime}
+          />
+        }
+      />
+      <Route
+        path='pay'
+        exact
+        element={
+          <SelectPay
+            currentOtt={currentOtt}
+            currentDays={currentDays}
+            currentDate={currentDate}
+            currentTime={currentTime}
+            selectedPay={selectedPay}
+            setSelectedPay={setSelectedPay}
+          />
+        }
+      />
+      <Route
+        path='complete'
+        exact
+        element={
+          <SelectComplete
+            currentOtt={currentOtt}
+            currentDays={currentDays}
+            currentDate={currentDate}
+            currentTime={currentTime}
+            selectedPay={selectedPay}
+          />
+        }
+      />
     </Routes>
   );
 };

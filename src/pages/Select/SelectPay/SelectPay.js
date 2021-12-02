@@ -16,11 +16,18 @@ import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
 
-const SelectPay = ({currentOtt, currentDays, currentDate, currentTime, selectedPay, setSelectedPay}) => {
+const SelectPay = ({
+  currentOtt,
+  currentDays,
+  currentDate,
+  currentTime,
+  selectedPay,
+  setSelectedPay,
+}) => {
   const navigate = useNavigate();
 
   const $acceptTerm = useRef();
-  
+
   const [acceptTerm, setAcceptTerm] = useState(false);
 
   return (
@@ -47,7 +54,9 @@ const SelectPay = ({currentOtt, currentDays, currentDate, currentTime, selectedP
             </Card.Text>
           )}
           <Card.Text>
-            {ottService[currentOtt].pays[`day${currentDays}`].pay -ottService[currentOtt].pays[`day${currentDays}`].sale}원
+            {ottService[currentOtt].pays[`day${currentDays}`].pay -
+              ottService[currentOtt].pays[`day${currentDays}`].sale}
+            원
           </Card.Text>
         </Card.Body>
       </Card>
@@ -125,13 +134,12 @@ const SelectPay = ({currentOtt, currentDays, currentDate, currentTime, selectedP
       <ButtonGroup className='mt-3'>
         <Button
           onClick={() => {
-
-            if(!acceptTerm) {
+            if (!acceptTerm) {
               alert('이용 약관에 동의하세요');
               $acceptTerm.current.focus();
               return;
             }
-            
+
             navigate({
               pathname: '/select/complete',
             });

@@ -6,8 +6,13 @@ import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
 
-const SelectComplete = ({currentOtt, currentDays, currentDate, currentTime, selectedPay}) => {
-  
+const SelectComplete = ({
+  currentOtt,
+  currentDays,
+  currentDate,
+  currentTime,
+  selectedPay,
+}) => {
   return (
     <Container className='mt-5'>
       <Alert variant='info'>
@@ -23,7 +28,10 @@ const SelectComplete = ({currentOtt, currentDays, currentDate, currentTime, sele
         <Card.Body>
           <Card.Title>이용 기간</Card.Title>
           <Card.Text>
-          {moment(currentDate).format('YYYY-MM-DD')} {currentTime.toLocaleUpperCase()} 6:00 ~ {moment(currentDate).add(currentDays, 'days').format('YYYY-MM-DD')} {currentTime.toLocaleUpperCase()} 6:00
+            {moment(currentDate).format('YYYY-MM-DD')}{' '}
+            {currentTime.toLocaleUpperCase()} 6:00 ~{' '}
+            {moment(currentDate).add(currentDays, 'days').format('YYYY-MM-DD')}{' '}
+            {currentTime.toLocaleUpperCase()} 6:00
           </Card.Text>
         </Card.Body>
       </Card>
@@ -31,8 +39,14 @@ const SelectComplete = ({currentOtt, currentDays, currentDate, currentTime, sele
         <Card.Body>
           <Card.Title>결제 금액</Card.Title>
           <Card.Text>
-            {ottService[currentOtt].pays[`day${currentDays}`].pay - ottService[currentOtt].pays[`day${currentDays}`].sale}원
-            {ottService[currentOtt].pays[`day${currentDays}`].sale ? `(총 ${ottService[currentOtt].pays[`day${currentDays}`].sale }원 할인 받았어요)` : ''}
+            {ottService[currentOtt].pays[`day${currentDays}`].pay -
+              ottService[currentOtt].pays[`day${currentDays}`].sale}
+            원
+            {ottService[currentOtt].pays[`day${currentDays}`].sale
+              ? `(총 ${
+                  ottService[currentOtt].pays[`day${currentDays}`].sale
+                }원 할인 받았어요)`
+              : ''}
           </Card.Text>
         </Card.Body>
       </Card>
