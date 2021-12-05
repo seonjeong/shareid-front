@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
-
-import moment from 'moment';
+import { useLocation } from 'react-router-dom';
 
 import {
   Container,
@@ -16,15 +15,18 @@ import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
 
-const SelectPay = ({
-  currentOtt,
-  currentDays,
-  currentDate,
-  currentTime,
-  selectedPay,
-  setSelectedPay,
-}) => {
+const SelectPay = () => {
   const navigate = useNavigate();
+  const { state = {} } = useLocation();
+
+  if (!state) {
+    navigate({
+      pathname: '/select/ott',
+    });
+  }
+
+  const { currentOtt, currentDays, currentDate, currentTime, selectedPay } =
+    state;
 
   const $acceptTerm = useRef();
 
@@ -71,7 +73,18 @@ const SelectPay = ({
               value='pay-registered'
               checked={'pay-registered' === selectedPay}
               onChange={() => {
-                setSelectedPay('pay-registered');
+                navigate(
+                  {
+                    pathname: '/select/pay',
+                  },
+                  {
+                    replace: true,
+                    state: {
+                      ...state,
+                      selectedPay: 'pay-registered',
+                    },
+                  }
+                );
               }}
             >
               등록된 결제 수단
@@ -81,9 +94,20 @@ const SelectPay = ({
               type='radio'
               name='pay'
               value='pay-credit'
-              checked={'pay-credit' === selectedPay}
+              checked={selectedPay ? 'pay-credit' === selectedPay : true}
               onChange={() => {
-                setSelectedPay('pay-credit');
+                navigate(
+                  {
+                    pathname: '/select/pay',
+                  },
+                  {
+                    replace: true,
+                    state: {
+                      ...state,
+                      selectedPay: 'pay-credit',
+                    },
+                  }
+                );
               }}
             >
               신용카드
@@ -95,7 +119,18 @@ const SelectPay = ({
               value='pay-phone'
               checked={'pay-phone' === selectedPay}
               onChange={() => {
-                setSelectedPay('pay-phone');
+                navigate(
+                  {
+                    pathname: '/select/pay',
+                  },
+                  {
+                    replace: true,
+                    state: {
+                      ...state,
+                      selectedPay: 'pay-phone',
+                    },
+                  }
+                );
               }}
             >
               휴대폰 결제
@@ -107,7 +142,18 @@ const SelectPay = ({
               value='pay-naver'
               checked={'pay-naver' === selectedPay}
               onChange={() => {
-                setSelectedPay('pay-naver');
+                navigate(
+                  {
+                    pathname: '/select/pay',
+                  },
+                  {
+                    replace: true,
+                    state: {
+                      ...state,
+                      selectedPay: 'pay-naver',
+                    },
+                  }
+                );
               }}
             >
               네이버 페이
@@ -140,9 +186,21 @@ const SelectPay = ({
               return;
             }
 
-            navigate({
-              pathname: '/select/complete',
-            });
+            navigate(
+              {
+                pathname: '/select/complete',
+              },
+              {
+                replace: true,
+                state: {
+                  currentOtt,
+                  currentDays,
+                  currentDate,
+                  currentTime,
+                  selectedPay,
+                },
+              }
+            );
           }}
         >
           구매하기

@@ -1,24 +1,26 @@
 import { useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
 
+import moment from 'moment';
+
 import { Container, Alert, Card, Form, ButtonGroup } from 'react-bootstrap';
 
 import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
 
-const SelectDate = ({
-  currentDays,
-  setCurrentDays,
-  currentDate,
-  setCurrentDate,
-  currentTime,
-  setCurrentTime,
-}) => {
+const SelectDate = () => {
   const navigate = useNavigate();
-  const {
-    state: { currentOtt },
-  } = useLocation();
+  const { state } = useLocation();
+  if (!state) {
+    navigate({
+      pathname: '/select/ott',
+    });
+
+    return null;
+  }
+
+  const { currentOtt, currentDays, currentDate, currentTime } = state;
 
   return (
     <Container className='mt-5'>
@@ -34,10 +36,21 @@ const SelectDate = ({
               id={`days${1}`}
               value={`days${1}`}
               label={`1일권`}
-              checked={currentDays === 1}
+              checked={currentDays ? currentDays === 1 : true}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCurrentDays(1);
+                  navigate(
+                    {
+                      pathname: '/select/date',
+                    },
+                    {
+                      replace: true,
+                      state: {
+                        ...state,
+                        currentDays: 1,
+                      },
+                    }
+                  );
                 }
               }}
             />
@@ -49,7 +62,18 @@ const SelectDate = ({
               checked={currentDays === 3}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCurrentDays(3);
+                  navigate(
+                    {
+                      pathname: '/select/date',
+                    },
+                    {
+                      replace: true,
+                      state: {
+                        ...state,
+                        currentDays: 3,
+                      },
+                    }
+                  );
                 }
               }}
             />
@@ -64,8 +88,20 @@ const SelectDate = ({
               type='date'
               id='start-date'
               value={currentDate}
+              defaultValue={moment().format('YYYY-MM-DD')}
               onChange={(e) => {
-                setCurrentDate(e.target.value);
+                navigate(
+                  {
+                    pathname: '/select/date',
+                  },
+                  {
+                    replace: true,
+                    state: {
+                      ...state,
+                      currentDate: e.target.value,
+                    },
+                  }
+                );
               }}
             />
           </Card.Text>
@@ -79,10 +115,21 @@ const SelectDate = ({
               type={'radio'}
               id={`time${'am'}`}
               value={`am`}
-              checked={currentTime === 'am'}
+              checked={currentTime ? currentTime === 'am' : true}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCurrentTime('am');
+                  navigate(
+                    {
+                      pathname: '/select/date',
+                    },
+                    {
+                      replace: true,
+                      state: {
+                        ...state,
+                        currentTime: 'am',
+                      },
+                    }
+                  );
                 }
               }}
               label={`AM 6:00`}
@@ -94,7 +141,18 @@ const SelectDate = ({
               checked={currentTime === 'pm'}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCurrentTime('pm');
+                  navigate(
+                    {
+                      pathname: '/select/date',
+                    },
+                    {
+                      replace: true,
+                      state: {
+                        ...state,
+                        currentTime: 'pm',
+                      },
+                    }
+                  );
                 }
               }}
               label={`PM 6:00`}
@@ -105,9 +163,19 @@ const SelectDate = ({
       <ButtonGroup className='mt-3'>
         <Button
           onClick={() => {
-            navigate({
-              pathname: '/select/pay',
-            });
+            navigate(
+              {
+                pathname: '/select/pay',
+              },
+              {
+                state: {
+                  currentOtt,
+                  currentDays,
+                  currentDate,
+                  currentTime,
+                },
+              }
+            );
           }}
         >
           Go

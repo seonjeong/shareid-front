@@ -1,3 +1,6 @@
+import { useNavigate } from 'react-router';
+import { useLocation } from 'react-router-dom';
+
 import moment from 'moment';
 
 import { Container, Alert, Card, ButtonGroup } from 'react-bootstrap';
@@ -6,13 +9,18 @@ import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
 
-const SelectComplete = ({
-  currentOtt,
-  currentDays,
-  currentDate,
-  currentTime,
-  selectedPay,
-}) => {
+const SelectComplete = () => {
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  if (!state) {
+    navigate({
+      pathname: '/select/ott',
+    });
+  }
+
+  const { currentOtt, currentDays, currentDate, currentTime, selectedPay } =
+    state;
+
   return (
     <Container className='mt-5'>
       <Alert variant='info'>
