@@ -18,6 +18,31 @@ const initState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case 'SelectOTT':
+      return {
+        ...state,
+        currentOtt: action.ott,
+      };
+    case 'SelectDays':
+      return {
+        ...state,
+        currentDays: action.days,
+      };
+    case 'SelectDate':
+      return {
+        ...state,
+        currentDate: action.date,
+      };
+    case 'SelectTime':
+      return {
+        ...state,
+        currentTime: action.time,
+      };
+    case 'SelectPay':
+      return {
+        ...state,
+        selectedPay: action.pay,
+      };
     default:
       return state;
   }

@@ -1,4 +1,7 @@
+import { useContext } from 'react';
 import moment from 'moment';
+
+import { SelectContext } from '../index';
 
 import { Container, Alert, Card, ButtonGroup } from 'react-bootstrap';
 
@@ -6,13 +9,10 @@ import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
 
-const SelectComplete = ({
-  currentOtt,
-  currentDays,
-  currentDate,
-  currentTime,
-  selectedPay,
-}) => {
+const SelectComplete = () => {
+  const { selectData, dispatch } = useContext(SelectContext);
+  const { currentOtt, currentDays, currentDate, currentTime, selectedPay } =
+    selectData;
   return (
     <Container className='mt-5'>
       <Alert variant='info'>

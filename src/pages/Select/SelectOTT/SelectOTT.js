@@ -1,4 +1,7 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { SelectContext } from '../index';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
@@ -7,8 +10,10 @@ import OTTCard from './SelectOTT.style';
 
 import { ottService } from '../_data';
 
-const SelectOTT = ({ setCurrentOtt }) => {
+const SelectOTT = () => {
   const navigate = useNavigate();
+
+  const { dispatch } = useContext(SelectContext);
 
   return (
     <Container>
@@ -22,15 +27,10 @@ const SelectOTT = ({ setCurrentOtt }) => {
                   <Button
                     variant='primary'
                     onClick={() => {
-                      setCurrentOtt(ott);
-                      navigate(
-                        {
-                          pathname: '/select/date',
-                        },
-                        {
-                          state: { currentOtt: ott },
-                        }
-                      );
+                      dispatch({ type: 'SelectOTT', ott });
+                      navigate({
+                        pathname: '/select/date',
+                      });
                     }}
                   >
                     Go

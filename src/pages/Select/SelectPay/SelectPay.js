@@ -1,7 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router';
 
 import moment from 'moment';
+
+import { SelectContext } from '../index';
 
 import {
   Container,
@@ -16,19 +18,17 @@ import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
 
-const SelectPay = ({
-  currentOtt,
-  currentDays,
-  currentDate,
-  currentTime,
-  selectedPay,
-  setSelectedPay,
-}) => {
+const SelectPay = () => {
   const navigate = useNavigate();
+
+  const { selectData, dispatch } = useContext(SelectContext);
 
   const $acceptTerm = useRef();
 
   const [acceptTerm, setAcceptTerm] = useState(false);
+
+  const { currentOtt, currentDays, currentDate, currentTime, selectedPay } =
+    selectData;
 
   return (
     <Container className='mt-5'>
@@ -71,7 +71,7 @@ const SelectPay = ({
               value='pay-registered'
               checked={'pay-registered' === selectedPay}
               onChange={() => {
-                setSelectedPay('pay-registered');
+                dispatch({ type: 'SelectPay', pay: 'pay-registered' });
               }}
             >
               등록된 결제 수단
@@ -83,7 +83,7 @@ const SelectPay = ({
               value='pay-credit'
               checked={'pay-credit' === selectedPay}
               onChange={() => {
-                setSelectedPay('pay-credit');
+                dispatch({ type: 'SelectPay', pay: 'pay-credit' });
               }}
             >
               신용카드
@@ -95,7 +95,7 @@ const SelectPay = ({
               value='pay-phone'
               checked={'pay-phone' === selectedPay}
               onChange={() => {
-                setSelectedPay('pay-phone');
+                dispatch({ type: 'SelectPay', pay: 'pay-phone' });
               }}
             >
               휴대폰 결제
@@ -107,7 +107,7 @@ const SelectPay = ({
               value='pay-naver'
               checked={'pay-naver' === selectedPay}
               onChange={() => {
-                setSelectedPay('pay-naver');
+                dispatch({ type: 'SelectPay', pay: 'pay-naver' });
               }}
             >
               네이버 페이

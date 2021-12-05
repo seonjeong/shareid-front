@@ -1,24 +1,21 @@
 import { useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
 
+import { SelectContext } from '../index';
+
 import { Container, Alert, Card, Form, ButtonGroup } from 'react-bootstrap';
 
 import { Button } from '../../../components/Button';
 
 import { ottService } from '../_data';
+import { useContext } from 'react';
 
-const SelectDate = ({
-  currentDays,
-  setCurrentDays,
-  currentDate,
-  setCurrentDate,
-  currentTime,
-  setCurrentTime,
-}) => {
+const SelectDate = () => {
   const navigate = useNavigate();
-  const {
-    state: { currentOtt },
-  } = useLocation();
+
+  const { selectData, dispatch } = useContext(SelectContext);
+
+  const { currentOtt, currentDays, currentDate, currentTime } = selectData;
 
   return (
     <Container className='mt-5'>
@@ -37,7 +34,7 @@ const SelectDate = ({
               checked={currentDays === 1}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCurrentDays(1);
+                  dispatch({ type: 'SelectDays', days: 1 });
                 }
               }}
             />
@@ -49,7 +46,7 @@ const SelectDate = ({
               checked={currentDays === 3}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCurrentDays(3);
+                  dispatch({ type: 'SelectDays', days: 3 });
                 }
               }}
             />
@@ -65,7 +62,7 @@ const SelectDate = ({
               id='start-date'
               value={currentDate}
               onChange={(e) => {
-                setCurrentDate(e.target.value);
+                dispatch({ type: 'SelectDate', date: e.target.value });
               }}
             />
           </Card.Text>
@@ -82,7 +79,7 @@ const SelectDate = ({
               checked={currentTime === 'am'}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCurrentTime('am');
+                  dispatch({ type: 'SelectTime', time: 'am' });
                 }
               }}
               label={`AM 6:00`}
@@ -94,7 +91,7 @@ const SelectDate = ({
               checked={currentTime === 'pm'}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setCurrentTime('pm');
+                  dispatch({ type: 'SelectTime', time: 'pm' });
                 }
               }}
               label={`PM 6:00`}
