@@ -1,4 +1,4 @@
-import { useState, useReducer } from 'react';
+import { useState, useReducer, createContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import moment from 'moment';
@@ -23,6 +23,11 @@ const reducer = (state, action) => {
   }
 };
 
+export const SelectContext = createContext({
+  selectData: {},
+  dispatch: () => {},
+});
+
 const Select = () => {
   const [currentOtt, setCurrentOtt] = useState('netflix');
   const [currentDays, setCurrentDays] = useState(1);
@@ -33,64 +38,60 @@ const Select = () => {
   const [state, dispatch] = useReducer(reducer, initState);
 
   return (
-    <Routes>
-      <Route
-        path=''
-        exact
-        element={
-          <SelectOTT currentOtt={currentOtt} setCurrentOtt={setCurrentOtt} />
-        }
-      />
-      <Route
-        path='ott'
-        exact
-        element={
-          <SelectOTT currentOtt={currentOtt} setCurrentOtt={setCurrentOtt} />
-        }
-      />
-      <Route
-        path='date'
-        exact
-        element={
-          <SelectDate
-            currentOtt={currentOtt}
-            currentDays={currentDays}
-            setCurrentDays={setCurrentDays}
-            currentDate={currentDate}
-            setCurrentDate={setCurrentDate}
-            currentTime={currentTime}
-            setCurrentTime={setCurrentTime}
-          />
-        }
-      />
-      <Route
-        path='pay'
-        exact
-        element={
-          <SelectPay
-            currentOtt={currentOtt}
-            currentDays={currentDays}
-            currentDate={currentDate}
-            currentTime={currentTime}
-            selectedPay={selectedPay}
-            setSelectedPay={setSelectedPay}
-          />
-        }
-      />
-      <Route
-        path='complete'
-        exact
-        element={
-          <SelectComplete
-            currentOtt={currentOtt}
-            currentDays={currentDays}
-            currentDate={currentDate}
-            currentTime={currentTime}
-            selectedPay={selectedPay}
-          />
-        }
-      />
-    </Routes>
+    <SelectContext.Provider value={{ selectData: state, dispatch }}>
+      <Routes>
+        <Route path='' exact element={<SelectOTT />} />
+        <Route
+          path='ott'
+          exact
+          element={
+            <SelectOTT currentOtt={currentOtt} setCurrentOtt={setCurrentOtt} />
+          }
+        />
+        <Route
+          path='date'
+          exact
+          element={
+            <SelectDate
+              currentOtt={currentOtt}
+              currentDays={currentDays}
+              setCurrentDays={setCurrentDays}
+              currentDate={currentDate}
+              setCurrentDate={setCurrentDate}
+              currentTime={currentTime}
+              setCurrentTime={setCurrentTime}
+            />
+          }
+        />
+        <Route
+          path='pay'
+          exact
+          element={
+            <SelectPay
+              currentOtt={currentOtt}
+              currentDays={currentDays}
+              currentDate={currentDate}
+              currentTime={currentTime}
+              selectedPay={selectedPay}
+              setSelectedPay={setSelectedPay}
+            />
+          }
+        />
+        <Route
+          path='complete'
+          exact
+          element={
+            <SelectComplete
+              currentOtt={currentOtt}
+              currentDays={currentDays}
+              currentDate={currentDate}
+              currentTime={currentTime}
+              selectedPay={selectedPay}
+            />
+          }
+        />
+      </Routes>
+    </SelectContext.Provider>
   );
 };
 
