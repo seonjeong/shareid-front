@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import moment from 'moment';
@@ -8,12 +8,29 @@ import { SelectDate } from './SelectDate';
 import { SelectPay } from './SelectPay';
 import { SelectComplete } from './SelectComplete';
 
+const initState = {
+  currentOtt: 'netflix',
+  currentDays: 1,
+  currentDate: moment().format('YYYY-MM-DD'),
+  currentTime: 'am',
+  selectedPay: 'pay-credit',
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
 const Select = () => {
   const [currentOtt, setCurrentOtt] = useState('netflix');
   const [currentDays, setCurrentDays] = useState(1);
   const [currentDate, setCurrentDate] = useState(moment().format('YYYY-MM-DD'));
   const [currentTime, setCurrentTime] = useState('am');
   const [selectedPay, setSelectedPay] = useState('pay-credit');
+
+  const [state, dispatch] = useReducer(reducer, initState);
 
   return (
     <Routes>
