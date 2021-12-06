@@ -9,11 +9,11 @@ import { SelectPay } from './SelectPay';
 import { SelectComplete } from './SelectComplete';
 
 const initState = {
-  currentOtt: 'netflix',
-  currentDays: 1,
-  currentDate: moment().format('YYYY-MM-DD'),
-  currentTime: 'am',
-  selectedPay: 'pay-credit',
+  currentOtt: null,
+  currentDays: null,
+  currentDate: null,
+  currentTime: null,
+  selectedPay: null,
 };
 
 const reducer = (state, action) => {
