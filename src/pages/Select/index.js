@@ -1,4 +1,4 @@
-import { useState, useReducer, createContext } from 'react';
+import { useState, useReducer, createContext, useMemo } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import moment from 'moment';
@@ -61,6 +61,8 @@ const Select = () => {
   const [selectedPay, setSelectedPay] = useState('pay-credit');
 
   const [state, dispatch] = useReducer(reducer, initState);
+
+  const value = useMemo(() => ({ selectData: state, dispatch }), [state]);
 
   return (
     <SelectContext.Provider value={{ selectData: state, dispatch }}>
