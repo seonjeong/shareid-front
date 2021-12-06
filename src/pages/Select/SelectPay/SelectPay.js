@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
 
@@ -19,18 +19,27 @@ const SelectPay = () => {
   const navigate = useNavigate();
   const { state = {} } = useLocation();
 
-  if (!state) {
-    navigate({
-      pathname: '/select/ott',
-    });
-  }
+  const isProcessed = (condition) => {
+    if (!condition) return false;
+    return Object.entries(condition).every(([key, item]) => item);
+  };
 
-  const { currentOtt, currentDays, currentDate, currentTime, selectedPay } =
-    state;
+  useEffect(() => {
+    if (!isProcessed(state)) {
+      navigate({
+        pathname: '/select/ott',
+      });
+    }
+  }, []);
 
   const $acceptTerm = useRef();
 
   const [acceptTerm, setAcceptTerm] = useState(false);
+
+  if (!isProcessed(state)) return null;
+
+  const { currentOtt, currentDays, currentDate, currentTime, selectedPay } =
+    state;
 
   return (
     <Container className='mt-5'>
@@ -197,7 +206,7 @@ const SelectPay = () => {
                   currentDays,
                   currentDate,
                   currentTime,
-                  selectedPay,
+                  selectedPay: selectedPay ? selectedPay : 'pay-credit',
                 },
               }
             );

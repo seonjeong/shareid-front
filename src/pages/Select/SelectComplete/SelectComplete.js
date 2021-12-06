@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
 
@@ -12,11 +13,21 @@ import { ottService } from '../_data';
 const SelectComplete = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  if (!state) {
-    navigate({
-      pathname: '/select/ott',
-    });
-  }
+
+  const isProcessed = (condition) => {
+    if (!condition) return false;
+    return Object.entries(condition).every(([key, item]) => item);
+  };
+
+  useEffect(() => {
+    if (!isProcessed(state)) {
+      navigate({
+        pathname: '/select/ott',
+      });
+    }
+  }, []);
+
+  if (!isProcessed(state)) return null;
 
   const { currentOtt, currentDays, currentDate, currentTime, selectedPay } =
     state;

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
 
@@ -12,13 +13,21 @@ import { ottService } from '../_data';
 const SelectDate = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  if (!state) {
-    navigate({
-      pathname: '/select/ott',
-    });
 
-    return null;
-  }
+  const isProcessed = (condition) => {
+    if (!condition) return false;
+    return Object.entries(condition).every(([key, item]) => item);
+  };
+
+  useEffect(() => {
+    if (!isProcessed(state)) {
+      navigate({
+        pathname: '/select/ott',
+      });
+    }
+  }, []);
+
+  if (!state) return null;
 
   const { currentOtt, currentDays, currentDate, currentTime } = state;
 
@@ -170,9 +179,11 @@ const SelectDate = () => {
               {
                 state: {
                   currentOtt,
-                  currentDays,
-                  currentDate,
-                  currentTime,
+                  currentDays: currentDays ? currentDays : 1,
+                  currentDate: currentDate
+                    ? currentDate
+                    : moment().format('YYYY-MM-D'),
+                  currentTime: currentTime ? currentTime : 'am',
                 },
               }
             );
