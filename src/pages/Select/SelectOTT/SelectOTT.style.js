@@ -7,4 +7,10 @@ const OTTCard = styled(Card)`
   background: #f0f0f0;
 `;
 
+const Title = styled(Card.Title)`
+  background: red;
+`;
+
 export default OTTCard;
+
+export { Title };
