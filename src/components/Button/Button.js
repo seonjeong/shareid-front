@@ -1,7 +1,7 @@
-import { Button } from 'react-bootstrap';
+import * as BootStrap from 'react-bootstrap';
 import styled from 'styled-components';
 
-const Default = styled(Button)`
+const Default = styled(BootStrap.Button)`
   border-radius: 30px;
   width: 100%;
   &:hover {

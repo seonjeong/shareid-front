@@ -6,7 +6,7 @@ import { SelectContext } from '../index';
 import { Container, Row, Col } from 'react-bootstrap';
 
 import { Button } from '../../../components/Button';
-import OTTCard, { Title } from './SelectOTT.style';
+import { default as OTTCard } from './SelectOTT.style';
 
 import { ottService } from '../_data';
 
@@ -23,7 +23,7 @@ const SelectOTT = () => {
             <Col>
               <OTTCard>
                 <OTTCard.Body>
-                  <Title>{ottData.title}</Title>
+                  <OTTCard.Title>{ottData.title}</OTTCard.Title>
                   <Button
                     variant='primary'
                     onClick={() => {
