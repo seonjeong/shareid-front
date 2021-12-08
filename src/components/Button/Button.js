@@ -1,12 +1,9 @@
-import * as BootStrap from 'react-bootstrap';
 import styled from 'styled-components';
 
-const Default = styled(BootStrap.Button)`
-  border-radius: 30px;
-  width: 100%;
-  &:hover {
-    box-shadow: 0 5px #333;
-  }
-`;
+import * as S from './Button.style';
 
-export default Default;
+const Button = ({ children }) => {
+  return <S.Button>{children}</S.Button>;
+};
+
+export default Button;
