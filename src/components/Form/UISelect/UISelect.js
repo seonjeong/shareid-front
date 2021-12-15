@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 
 import * as S from './UISelect.styles';
 
-const UISelect = ({ value, options, onChange }) => {
+const UISelect = ({ value: _value, options, onChange = () => {} }) => {
   const $wrapper = useRef();
+  const [value, setValue] = useState();
   const [isOpen, setIsOpen] = useState(false);
 
   const close = (e) => {
@@ -25,6 +26,11 @@ const UISelect = ({ value, options, onChange }) => {
       document.removeEventListener('click', close);
     };
   }, []);
+
+  useEffect(() => {
+    setValue(_value);
+  }, [_value]);
+
   return (
     <S.UISelect ref={$wrapper}>
       <S.Select
@@ -53,6 +59,7 @@ const UISelect = ({ value, options, onChange }) => {
                 <S.A
                   on={optionValue === value}
                   onClick={() => {
+                    setValue(optionValue);
                     onChange(optionValue);
                     setIsOpen(false);
                   }}
