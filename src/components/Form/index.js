@@ -1,3 +1,4 @@
+import { UIInput } from './UIInput';
 import { UISelect } from './UISelect';
 
-export { UISelect };
+export { UIInput, UISelect };
