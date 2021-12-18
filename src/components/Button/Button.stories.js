@@ -15,5 +15,21 @@ const Template = (args) => {
 export const Primary = Template.bind({});
 Primary.args = {
   children: 'Button',
+  type: 'default',
   variant: 'primary',
+};
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  children: 'Button',
+  type: 'default',
+  variant: 'secondary',
+};
+
+export const Small = Template.bind({});
+Small.args = {
+  children: 'Button',
+  type: 'default',
+  variant: 'primary',
+  size: 'small',
 };
